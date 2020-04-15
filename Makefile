@@ -13,10 +13,10 @@ start:
 stop:
 	docker stop $(CONTAINER_NAME)
 
-clear: stop
+clean: stop
 	docker rm $(CONTAINER_NAME)
 
-fclear: clear
+fclean: clear
 	docker image rm $(IMAGE_NAME)
 
 help:

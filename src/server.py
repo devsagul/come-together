@@ -3,6 +3,7 @@ from gluer import glue
 
 
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route("/", methods=["GET"])
 def home():
@@ -15,14 +16,15 @@ def concatenate():
     scale = request.values.get('scale', 'up')
     fmt = request.values.get('format', 'pdf')
     files = request.files.getlist("file[]")
-    # valudate file types
+    # TODO valudate file types
+    # TODO validate number of files
     try:
-        result = Gluer.glue(files, scale=scale, fmt=fmt)
-    except Exception:
-        ...
+        result = glue(files, scale=scale, fmt=fmt)
+    except (ValueError, TypeError) as e:
+        return str(e), 400
     return send_file(result.file,
                      attachment_filename=result.display_name,
                      mimetype=result.mimetype)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

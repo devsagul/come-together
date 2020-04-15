@@ -16,7 +16,7 @@ stop:
 clean: stop
 	docker rm $(CONTAINER_NAME)
 
-fclean: clear
+fclean: clean
 	docker image rm $(IMAGE_NAME)
 
 help:
@@ -30,4 +30,4 @@ help:
 	@echo "make re		--	remove container and image, build again and start the container"
 	@echo "make help	--	show this message"
 
-re: clear all
+re: clean all

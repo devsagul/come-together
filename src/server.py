@@ -2,6 +2,12 @@ from flask import Flask, send_file, render_template, request
 from gluer import glue
 
 
+ALLOWED_MIMETYPES = [
+    'application/pdf',
+    'image/jpeg',
+    'image/png',
+]
+
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
@@ -16,8 +22,11 @@ def concatenate():
     scale = request.values.get('scale', 'up')
     fmt = request.values.get('format', 'pdf')
     files = request.files.getlist("file[]")
-    # TODO valudate file types
-    # TODO validate number of files
+    for f in files:
+        if f.mimetype not in ALLOWED_MIMETYPES:
+            return f"Недопустимый тип файла: {f.mimetype}", 400
+    if not files:
+        return "Необходимо предоставить как миниум один файл", 400
     try:
         result = glue(files, scale=scale, fmt=fmt)
     except (ValueError, TypeError) as e:

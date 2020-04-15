@@ -1,0 +1,17 @@
+<h1>Come together</h1>
+<h2>Сервис для объединения нескольких изображений / pdf-документов в одно изображение / pdf-документ</h2>
+<form action="/cat" method="POST" enctype="multipart/form-data">
+    <select requred name='scale'>
+        <option value="" disabled selected>Выберите метод масштабирования</option>
+        <option value="up">up</option>
+        <option value="down">down</option>
+    </select>
+    <select requred name='format'>
+        <option value="" disabled selected>Выберите формат результата</option>
+        <option value="pdf">PDF</option>
+        <option value="jpg">JPEG</option>
+        <option value="png">PNG</option>
+    </select>
+    <input type="file" name="file[]" id="fileupload" multiple=true required>
+    <input type="submit" value="Склеить">
+</form>

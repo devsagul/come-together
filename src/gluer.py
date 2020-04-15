@@ -29,9 +29,9 @@ class GlueResult:
     @property
     def memtype(self):
         types = {
-            'pdf' : ,
-            'jpg' : ,
-            'png' : ,
+            'pdf' : 'application/pdf',
+            'jpg' : 'image/jpg',
+            'png' : 'image/png',
         }
         return types[self.fmt]
 
